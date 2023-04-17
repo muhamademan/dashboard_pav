@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class status_pod_distribusi extends CI_Controller
 {
     public function __construct()
@@ -22,15 +25,17 @@ class status_pod_distribusi extends CI_Controller
                 $data_pod       = $this->mpod->view_by_tanggal($tanggal1, $tanggal2)->result_array();
             } elseif ($filter   == '2') {
                 $regional       = $_GET['regional'];
+                $cetak_excel    = 'status_pod_distribusi/cetakRegional?&regional=' . $regional;
                 $data_pod       = $this->mpod->byRegional($regional)->result_array();
             } elseif ($filter   == '3') {
                 $regional2      = $_GET['regional2'];
                 $tanggal3       = $_GET['tanggal3'];
                 $tanggal4       = $_GET['tanggal4'];
+                $cetak_excel    = 'status_pod_distribusi/cetakPeriodeRegional?regional2=' . $regional2 . '&tanggal3=' . $tanggal3 . '&tanggal4=' . $tanggal4 . '';
                 $data_pod       = $this->mpod->regionalbytanggal($regional2, $tanggal3, $tanggal4)->result_array();
             }
         } else {
-            $cetak_excel = 'status_pod_distribusi/cetakAllExcel';
+            $cetak_excel        = 'status_pod_distribusi/cetakAllExcel';
             $data_pod           = $this->mpod->getAll();
         }
 
@@ -52,22 +57,47 @@ class status_pod_distribusi extends CI_Controller
 
     public function cetakAllExcel()
     {
-        $data['tgl_cetak'] = 'dicetak pada tanggal :' . date('Y M d');
+        $data['tgl_cetak'] = 'Dicetak pada tanggal : ' . date('d M Y');
 
         $keterangan = 'ALL DATA';
         $data['ket'] = $keterangan;
-        $data['allData'] = $this->db->get("PAV_STATUSDISTRIBUSI")->result_array();
+        $data['data_pod'] = $this->db->get("PAV_STATUSDISTRIBUSI")->result_array();
         $this->load->view('status_pod_distribusi/printExcel', $data);
     }
 
     public function cetakTglExcel()
     {
-        $data['tgl_cetak'] = 'dicetak pada tanggal :' . date('Y M d');
+        $data['tgl_cetak'] = 'Dicetak pada tanggal : ' . date('d M Y');
         $tanggal1 = $_GET['tanggal1'];
         $tanggal2 = $_GET['tanggal2'];
 
-        $keterangan = 'Status POD Distribusi dari tanggal' . date('d-m-Y', strtotime($tanggal1)) . 'sampai tanggal' . date('d-m-Y', strtotime($tanggal2));
+        $keterangan = 'Status POD Distribusi Dari Tanggal ' . date('d M Y', strtotime($tanggal1)) . ' sampai tanggal ' . date('d M Y', strtotime($tanggal2));
+        $data['data_pod'] = $this->mpod->view_by_tanggal($tanggal1, $tanggal2)->result_array();
         $data['ket'] = $keterangan;
-        $this->load->view('status_pod_distribusi/printExcel');
+        $this->load->view('status_pod_distribusi/printExcel', $data);
+    }
+
+    public function cetakRegional()
+    {
+        $data['tgl_cetak'] = 'Dicetak pada tanggal : ' . date('d M Y');
+        $regional          = $_GET['regional'];
+
+        $keterangan = 'Status POD Distribusi Berdasarkan Regional ' . strtoupper($regional);
+        $data['data_pod'] = $this->mpod->byRegional($regional)->result_array();
+        $data['ket'] = $keterangan;
+        $this->load->view('status_pod_distribusi/printExcel', $data);
+    }
+
+    public function cetakPeriodeRegional()
+    {
+        $data['tgl_cetak'] = 'Dicetak pada tanggal : ' . date('d M Y');
+        $regional2 = $_GET['regional2'];
+        $tanggal3 = $_GET['tanggal3'];
+        $tanggal4 = $_GET['tanggal4'];
+
+        $keterangan = 'Status POD Distribusi Berdasarkan Regional ' . strtoupper($regional2) . ' Dengan Periode Tanggal Permintaan ' . date('d M Y', strtotime($tanggal3)) . ' Sampai Tanggal ' . date('d M Y', strtotime($tanggal4));
+        $data['data_pod'] = $this->mpod->regionalbytanggal($regional2, $tanggal3, $tanggal4)->result_array();
+        $data['ket'] = $keterangan;
+        $this->load->view('status_pod_distribusi/printExcel', $data);
     }
 }
