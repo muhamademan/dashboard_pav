@@ -22,6 +22,6 @@
 		"phpunit/phpunit": "4.* || 5.*"
 	},
 	"config": {
-		"platform-check": true
+		"platform-check": false
 	}
 }
