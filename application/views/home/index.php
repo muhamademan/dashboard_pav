@@ -29,7 +29,7 @@
                             <div class="h6 text-xs font-weight-bold text-dark text-uppercase mb-1">
                                 JUMLAH VENDOR</div>
                             <hr class="sidebar-divider">
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $dataCount->KODEVENDOR ?></div>
                         </div>
                     </div>
                 </div>
