@@ -7,13 +7,15 @@ class Home extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->model('M_home');
     }
 
     public function index()
     {
-        // $data['user'] = $this->db->get_where('ORA_USER', ['USER_NAME' => $this->session->userdata('USER_NAME')])->result_array();
         $data['user'] = $this->db->get_where('PAV_CABANG', ['USER_NAME' => $this->session->userdata('USER_NAME')])->row_array();
         $data['title'] = 'Home';
+
+        $data['dataCount'] = $this->db->query("SELECT COUNT(KODEVENDOR) FROM PAV_VENDOR")->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
