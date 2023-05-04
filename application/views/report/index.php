@@ -5,18 +5,22 @@
         <div class="card-header col-6 shadow mb-4" style="background-color: #edeceb;">
             <div class="card-body col-md-12">
                 <div class="container">
-                    <script src="<?php echo base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
+                    <script src="<?php
+
+                                    use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Base;
+
+                                    echo base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
                     <!-- Load File Jquery -->
                     <form action="" method="GET" class="">
                         <div class="form-group">
                             <label for="">Filter Berdasarkan</label>
                             <select class="form-control" name="filter" id="filter" style="width: 100%">
                                 <option value="" selected disabled>Pilih Salah Satu</option>
-                                <option value="1">Range Tanggal</option>
+                                <option value="1">Periode Tanggal</option>
                                 <option value="2">Regional</option>
                                 <option value="3">Merchandise</option>
-                                <option value="4">Merchandise & Range Tanggal</option>
-                                <option value="5">Regional & Range Tanggal</option>
+                                <option value="4">Merchandise & Periode Tanggal</option>
+                                <option value="5">Regional & Periode Tanggal</option>
                             </select>
                         </div>
                         <!-- ========== BERDASARKAN RANGE TANGGAL ========== -->
@@ -124,7 +128,7 @@
                     <div class="col">
                         <div class="d-flex justify-content-between">
                             <span class="text-light">REPORT HARIAN MERCHANDISE</span>
-                            <a href="" target="_blank" class="text-warning btn-outline-info"><i
+                            <a href="<?= $cetak_file ?>" target="_blank" class="text-warning btn-outline-info"><i
                                     class="fas fa-file-excel-o"></i> Excel</a>
                         </div>
                     </div>
