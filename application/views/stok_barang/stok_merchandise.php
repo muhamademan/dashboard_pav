@@ -22,6 +22,7 @@
                         <thead class="thead-light">
                             <tr class="text-center" style="font-size: 12px; color: black;">
                                 <th class="align-middle text-center" rowspan="2">No</th>
+                                <th class="align-middle text-center" rowspan="2">Tanggal</th>
                                 <th class="align-middle text-center" rowspan="2">Kode Barang</th>
                                 <th class="align-middle text-center" rowspan="2">Nama <br>Merchandise</th>
                                 <th class="align-middle text-center" rowspan="2">Harga Merchandise</th>
@@ -44,6 +45,8 @@
                             <?php foreach ($stok_merchan as $data) : ?>
                             <tr class="text-left text-dark text-small item">
                                 <td class="text-center"><small><?= $no++; ?></small></td>
+                                <td class="text-center"><small><?= date('d M Y', strtotime($data['TGL'])) ?></small>
+                                </td>
                                 <td class="text-center"><small><?= $data['KODEBARANG'] ?></small></td>
                                 <!-- <td class=""><small><?= $data['NAMABARANG'] ?></small></td> -->
                                 <td class="text-dark"><small>
@@ -127,11 +130,13 @@
                                 </td>
                                 <td class="text-right"><small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
                                 </td>
-                                <td class="text-right"><small>7878</small></td>
+                                <td class="text-right"><small><?= number_format($data['JUMLAH'], 0, ',', '.') ?></small>
+                                </td>
                                 <td class="text-right"><small><?= $data['LOKASI'] ?></small></td>
                                 <td class="text-right"><small><?= $data['LOKASI'] ?></small></td>
 
-                                <td class="text-right"><small>ERER</small></td>
+                                <td class="text-right"><small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
+                                </td>
                                 <td class="text-right"><small><?= $data['HARGA'] ?></small></td>
                                 <td class="text-right"><small><?= $data['HARGA'] ?></small></td>
                             </tr>
@@ -140,7 +145,7 @@
                             <?php endforeach; ?>
                         </tbody>
                         <tr class="text-left text-small" style="background-color: #4f6070; font-weight: bold;">
-                            <td class="text-center text-light" colspan="3">Total</td>
+                            <td class="text-center text-light" colspan="4">Total</td>
                             <td class="text-right text-light">0</td>
                             <td class="text-right text-light">0</td>
                             <td class="text-right text-light">0</td>
