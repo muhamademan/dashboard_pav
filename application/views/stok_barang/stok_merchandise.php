@@ -26,7 +26,7 @@
                                 <th class="align-middle text-center" rowspan="2">Kode Barang</th>
                                 <th class="align-middle text-center" rowspan="2">Nama <br>Merchandise</th>
                                 <th class="align-middle text-center" rowspan="2">Harga Merchandise</th>
-                                <th class="text-center" colspan="3">Jumlah Merchandise</th>
+                                <th class="text-center" colspan="3">Jumlah Merchandise (stok)</th>
                                 <th class="text-center" colspan="3">Jumlah Ammount Merchandise</th>
                             <tr class="text-center" style="font-size: 12px; color: black;">
                                 <th class="text-center">Total</th>
@@ -130,29 +130,70 @@
                                 </td>
                                 <td class="text-right"><small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
                                 </td>
-                                <td class="text-right"><small><?= number_format($data['JUMLAH'], 0, ',', '.') ?></small>
+
+                                <!-- ================= Jumlah Merchandise (stok) =================== -->
+
+                                <td class="text-center">
+                                    <small><?= number_format($data['JUMLAH'], 0, ',', '.') ?></small>
                                 </td>
-                                <td class="text-right"><small><?= $data['LOKASI'] ?></small></td>
-                                <td class="text-right"><small><?= $data['LOKASI'] ?></small></td>
+
+                                <td class="text-right merchan45"><small><?php if ($data['LOKASI'] == 'Gudang 45') { ?>
+                                        <?= number_format($data['JUMLAH'], 0, ',', '.') ?>
+                                        <?php } ?>
+                                    </small>
+                                </td>
+
+
+                                <td class="text-right merchan11"><small><?php if ($data['LOKASI'] == 'Gudang 11') { ?>
+                                        <?= number_format($data['JUMLAH'], 0, ',', '.') ?>
+                                        <?php } ?>
+                                    </small>
+                                </td>
+
+                                <!-- ================= Jumlah Ammount Merchandise =================== -->
 
                                 <td class="text-right"><small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
                                 </td>
-                                <td class="text-right"><small><?= $data['HARGA'] ?></small></td>
-                                <td class="text-right"><small><?= $data['HARGA'] ?></small></td>
+                                <td class="text-right"><small><?php if ($data['LOKASI'] == 'Gudang 45') { ?>
+                                        <?= number_format($data['HARGA'], 0, ',', '.') ?>
+                                        <?php } ?>
+                                    </small>
+                                </td>
+                                <td class="text-right"><small><?php if ($data['LOKASI'] == 'Gudang 11') { ?>
+                                        <?= number_format($data['HARGA'], 0, ',', '.') ?>
+                                        <?php } ?>
+                                    </small>
+                                </td>
                             </tr>
-
-
                             <?php endforeach; ?>
+
                         </tbody>
                         <tr class="text-left text-small" style="background-color: #4f6070; font-weight: bold;">
-                            <td class="text-center text-light" colspan="4">Total</td>
-                            <td class="text-right text-light">0</td>
-                            <td class="text-right text-light">0</td>
-                            <td class="text-right text-light">0</td>
-                            <td class="text-right text-light">0</td>
-                            <td class="text-right text-light">0</td>
-                            <td class="text-right text-light">0</td>
-                            <td class="text-right text-light">0</td>
+                            <td class="text-center text-light" colspan="4">TOTAL</td>
+                            <?php foreach ($hargaMerchan as $data) : ?>
+                            <td class="text-right text-light merchan"><?= number_format($data['HARGA'], 0, ',', '.') ?>
+                            </td>
+                            <td class="text-right text-light"><?= number_format($data['JUMLAH'], 0, ',', '.') ?></td>
+                            <?php endforeach; ?>
+
+                            <!-- <td class="text-right text-light jumlah11">0</td> -->
+                            <td class="text-right text-light">
+                                <?php if ($lokasi[0]->LOKASI == 'Gudang 45') { ?><?= number_format($lokasi[0]->JUMLAH, 0, ',', '.') ?><?php } ?>
+                            </td>
+                            <td class="text-right text-light">
+                                <?php if ($lokasi[1]->LOKASI == 'Gudang 11') { ?><?= number_format($lokasi[1]->JUMLAH, 0, ',', '.') ?><?php } ?>
+                            </td>
+
+
+                            <td class="text-right text-light"><?= number_format($data['HARGA'], 0, ',', '.') ?></td>
+                            <td class="text-right text-light">
+                                <?php if ($lokasi[0]->LOKASI == 'Gudang 45') { ?><?= number_format($lokasi[0]->HARGA, 0, ',', '.') ?><?php } ?>
+                            </td>
+                            <td class="text-right text-light">
+                                <?php if ($lokasi[1]->LOKASI == 'Gudang 11') { ?><?= number_format($lokasi[1]->HARGA, 0, ',', '.') ?><?php } ?>
+                            </td>
+                            <!-- <t class="text-right text-light">0</t'd> -->
+
                         </tr>
                     </table>
                 </div>
@@ -221,3 +262,15 @@
     </div>
 </div> -->
 <!-- End modal trigger namabarang -->
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+$('.item').each(function() {
+    const obj = $(this)
+    const merchan45 = obj.find('.merchan45')
+    const hargaMerchan = obj.find('.merchan')
+    merchan45.keyup(function() {
+        hargaMerchan = sum(merchan45)
+    })
+})
+</script>
