@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="mb-4">
             <label for="test">TANGGAL STOCK OPNAME :</label>
-            <input type="text" class="form-control col-lg-3" readonly value="<?= date('d/M/Y') ?>">
+            <input type="text" class="form-control col-lg-3" readonly value="<?= date('d-M-Y') ?>">
         </div>
         <!-- ==================================== TABLE STOK OPNAM ==================================== -->
         <form action="<?= base_url('test') ?>" method="post">
@@ -23,6 +23,7 @@
                             <thead class="thead-light">
                                 <tr class="text-center" style="font-size: 12px; color: black;">
                                     <th class="align-middle text-center" rowspan="2">No</th>
+                                    <th class="align-middle text-center" rowspan="2">Tanggal</th>
                                     <th class="align-middle text-center" rowspan="2">Kode Barang</th>
                                     <th class="align-middle text-center" rowspan="2">Nama <br>Merchandise</th>
                                     <th class="align-middle text-center" rowspan="2">Harga Merchandise</th>
@@ -64,20 +65,25 @@
                                 <?php foreach ($stok_merchan as $data) : ?>
                                 <tr class="text-left text-dark text-small item">
                                     <td class="text-center"><small><?= $no++; ?></small></td>
+                                    <td class="text-center"><small><?= $data['TGL'] ?></small></td>
                                     <td class="text-center"><small><?= $data['KODEBARANG'] ?></small></td>
                                     <td class=""><small><?= $data['NAMABARANG'] ?></small></td>
-                                    <td class="text-right">
+                                    <td class="text-center">
                                         <small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
                                     </td>
                                     <td class="text-right" style="background-color: #97bff0;"><small><input type="text"
-                                                name="" class="form-control" id="" value="12" readonly></small></td>
+                                                name="" class="form-control" id=""
+                                                value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
+                                                readonly></small></td>
                                     <td class="text-right" style="background-color: #97bff0;">
                                         <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= $data['LOKASI'] ?>" readonly></small>
+                                                value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
+                                                readonly></small>
                                     </td>
                                     <td class="text-right" style="background-color: #97bff0;">
                                         <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= $data['LOKASI'] ?>" readonly></small>
+                                                value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
+                                                readonly></small>
                                     </td>
 
                                     <td class="text-right" style="background-color: #a9e8c6;"><small><input type="text"
