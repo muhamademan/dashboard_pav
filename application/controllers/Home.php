@@ -15,7 +15,8 @@ class Home extends CI_Controller
         $data['user'] = $this->db->get_where('PAV_CABANG', ['USER_NAME' => $this->session->userdata('USER_NAME')])->row_array();
         $data['title'] = 'Home';
 
-        $data['dataCount'] = $this->db->query("SELECT COUNT(KODEVENDOR) FROM PAV_VENDOR")->row_array();
+        $dataCabang = "SELECT count(REGIONAL) AS REGIONAL FROM PAV_CABANG WHERE STATUS_CBG = '1'";
+        $data['dataCabang'] = $this->db->query($dataCabang)->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
