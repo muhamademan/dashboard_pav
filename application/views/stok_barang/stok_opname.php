@@ -1,11 +1,13 @@
 <div class="container-fluid">
     <div class="col-md-12">
-        <div class="mb-4">
-            <label for="test">TANGGAL STOCK OPNAME :</label>
-            <input type="text" class="form-control col-lg-3" readonly value="<?= date('d-M-Y') ?>">
-        </div>
-        <!-- ==================================== TABLE STOK OPNAM ==================================== -->
-        <form action="<?= base_url('test') ?>" method="post">
+        <form action="<?= base_url('stok_barangMerchan/inputOpname') ?>" method="post">
+            <div class="mb-4">
+                <label for="test">TANGGAL STOCK OPNAME :</label>
+                <input type="text" class="form-control col-lg-3" name="TGL_OPNAME" readonly
+                    value="<?= date('d-M-Y') ?>">
+            </div>
+            <?= $this->session->flashdata('message') ?>
+            <!-- ==================================== TABLE STOK OPNAM ==================================== -->
             <div class="card shadow">
                 <div class="card-header bg-info border-bottom-warning py-2">
                     <div class="row">
@@ -28,14 +30,13 @@
                                     <th class="align-middle text-center" rowspan="2">Nama <br>Merchandise</th>
                                     <th class="align-middle text-center" rowspan="2">Harga Merchandise</th>
                                     <th class="text-center" colspan="3" style="background-color: #97bff0;">Jumlah Stok
-                                        BarangMerchandise</th>
+                                        Merchandise</th>
                                     <th class="text-center" colspan="3" style="background-color: #a9e8c6;">Perhitungan
                                         Stok
-                                        Opname Jumlah Barang Merchandise
+                                        Opname Jumlah Merchandise
                                     </th>
                                     <th class="text-center" colspan="3" style="background-color: #edc9b7;">Selisih
-                                        Jumlah
-                                        Barang Merchandise</th>
+                                        Jumlah Merchandise</th>
                                     <th class="text-center" colspan="3" style="background-color: #edc9b7;">Selisih
                                         Jumlah
                                         Ammount Merchandise (Besarkan Stok
@@ -65,82 +66,146 @@
                                 <?php foreach ($stok_merchan as $data) : ?>
                                 <tr class="text-left text-dark text-small item">
                                     <td class="text-center"><small><?= $no++; ?></small></td>
-                                    <td class="text-center"><small><?= $data['TGL'] ?></small></td>
-                                    <td class="text-center"><small><?= $data['KODEBARANG'] ?></small></td>
-                                    <td class=""><small><?= $data['NAMABARANG'] ?></small></td>
-                                    <td class="text-center">
-                                        <small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
+                                    <td class="text-center"><small><input type="text" class="form-control"
+                                                name="TGL_BRG[]" value="<?= $data['TGL'] ?>" readonly>
+                                        </small>
                                     </td>
+                                    <td class="text-center"><small><input type="text" class="form-control" readonly
+                                                name="KODEBARANG[]" value="<?= $data['KODEBARANG'] ?>">
+                                        </small>
+                                    </td>
+                                    <td class=""><small><input type="text" class="form-control" name="NAMABARANG[]"
+                                                readonly value="<?= $data['NAMABARANG'] ?>">
+                                        </small>
+                                    </td>
+                                    <td class="text-center">
+                                        <small><input type="text" class="form-control" name="HARGA[]" readonly
+                                                value="<?= number_format($data['HARGA'], 0, ',', '.'); ?>">
+                                        </small>
+                                    </td>
+
+                                    <!-- ===================== Jumlah Stok Merchandise ===================== -->
                                     <td class="text-right" style="background-color: #97bff0;"><small><input type="text"
-                                                name="" class="form-control" id=""
+                                                name="TOTAL_JUMLAH[]" class="form-control"
                                                 value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
                                                 readonly></small></td>
                                     <td class="text-right" style="background-color: #97bff0;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
-                                                readonly></small>
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 45') { ?>
+                                            <input type="text" name="JUMLAH45[]" class="form-control stok45" id=""
+                                                value="<?= $data['JUMLAH'] ?>" readonly>
+                                            <?php } else { ?>
+                                            <input type="text" name="JUMLAH45[]" class="form-control stok45" id=""
+                                                value="-" readonly>
+                                            <?php } ?>
+                                        </small>
                                     </td>
+
                                     <td class="text-right" style="background-color: #97bff0;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
-                                                readonly></small>
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 11') { ?>
+                                            <input type="text" name="JUMLAH11[]" class="form-control stok11" id=""
+                                                value="<?= $data['JUMLAH'] ?>" readonly>
+                                            <?php } else { ?>
+                                            <input type="text" name="JUMLAH11[]" class="form-control stok11" id=""
+                                                value="-" readonly>
+                                            <?php } ?>
+                                        </small>
                                     </td>
+                                    <!-- ===================== END ===================== -->
 
+                                    <!-- ===================== Perhitungan Stok Opname Jumlah Merchandise ===================== -->
                                     <td class="text-right" style="background-color: #a9e8c6;"><small><input type="text"
-                                                name="" class="form-control" id="" value=""></small></td>
+                                                name="TOTAL_PERHITUNGAN[]" class="form-control" id=""
+                                                value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
+                                                readonly></small></td>
                                     <td class="text-right" style="background-color: #a9e8c6;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= $data['LOKASI'] ?>"></small>
-                                    </td>
-                                    <td class="text-right" style="background-color: #a9e8c6;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= $data['LOKASI'] ?>"></small>
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 45') { ?>
+                                            <input type="text" name="PERHITUNGAN_STOK45[]" class="form-control opname45"
+                                                id="" value="<?= $data['JUMLAH'] ?>">
+                                            <?php } else { ?>
+                                            <input type="text" name="PERHITUNGAN_STOK45[]" class="form-control opname45"
+                                                id="" value="-" readonly>
+                                            <?php } ?>
+                                        </small>
                                     </td>
 
-                                    <td class="text-right" style="background-color: #edc9b7;"><small><input type="text"
-                                                name="" class="form-control" id="" value="34" readonly></small></td>
-                                    <td class="text-right" style="background-color: #edc9b7;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= $data['LOKASI'] ?>" readonly></small>
+                                    <td class="text-right" style="background-color: #a9e8c6;">
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 11') { ?>
+                                            <input type="text" name="PERHITUNGAN_STOK11[]" class="form-control opname11"
+                                                id="" value="<?= $data['JUMLAH'] ?>">
+                                            <?php } else { ?>
+                                            <input type="text" name="PERHITUNGAN_STOK11[]" class="form-control opname11"
+                                                id="" value="-" readonly>
+                                            <?php } ?>
+                                        </small>
                                     </td>
+                                    <!-- ===================== END ===================== -->
+
+                                    <!-- ===================== Selisih Jumlah Merchandise ===================== -->
+                                    <td class="text-right" style="background-color: #edc9b7;"><small><input type="text"
+                                                name="SELISIH_QTY[]" class="form-control"
+                                                value="<?= number_format($data['JUMLAH'], 0, ',', '.') ?>"
+                                                readonly></small></td>
+
                                     <td class="text-right" style="background-color: #edc9b7;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= $data['LOKASI'] ?>" readonly></small>
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 45') { ?>
+                                            <input type="text" name="SELISIH_QTY45[]" class="form-control selisihQty45"
+                                                value="0" readonly>
+                                            <?php } else { ?>
+                                            <input type="text" name="SELISIH_QTY45[]" class="form-control selisihQty45"
+                                                value="-" readonly>
+                                            <?php } ?>
+                                        </small>
                                     </td>
 
+                                    <td class="text-right" style="background-color: #edc9b7;">
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 11') { ?>
+                                            <input type="text" name="SELISIH_QTY11[]" class="form-control selisihQty11"
+                                                value="0" readonly>
+                                            <?php } else { ?>
+                                            <input type="text" name="SELISIH_QTY11[]" class="form-control selisihQty11"
+                                                value="-" readonly>
+                                            <?php } ?>
+                                        </small>
+                                    </td>
+                                    <!-- ===================== END ===================== -->
+
+                                    <!-- ===================== Selisih Jumlah Ammount Merchandise (Besarkan Stok Opname) ===================== -->
                                     <td class="text-right" style="background-color: #edc9b7;"><small><input type="text"
-                                                name="" class="form-control" id="" value="10" readonly></small></td>
+                                                name="SELISIH_HARGA[]" class="form-control harga"
+                                                value="<?= $data['HARGA'] ?>" readonly></small></td>
                                     <td class="text-right" style="background-color: #edc9b7;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= number_format($data['HARGA'], 0, ',', '.'); ?>"
-                                                readonly></small>
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 45') { ?>
+                                            <input type="text" name="SELISIH_HARGA45[]"
+                                                class="form-control selishiHarga45" value="0" readonly>
+                                            <?php } else { ?>
+                                            <input type="text" name="SELISIH_HARGA45[]"
+                                                class="form-control selishiHarga45" value="-" readonly>
+                                            <?php } ?>
+                                        </small>
                                     </td>
+
                                     <td class="text-right" style="background-color: #edc9b7;">
-                                        <small><input type="text" name="" class="form-control" id=""
-                                                value="<?= number_format($data['HARGA'], 0, ',', '.'); ?>"
-                                                readonly></small>
+                                        <small>
+                                            <?php if ($data['LOKASI'] == 'Gudang 11') { ?>
+                                            <input type="text" name="SELISIH_HARGA11[]"
+                                                class="form-control selisihHarga11" value="0" readonly>
+                                            <?php } else { ?>
+                                            <input type="text" name="SELISIH_HARGA11[]"
+                                                class="form-control selisihHarga11" value="-" readonly>
+                                            <?php } ?>
+                                        </small>
                                     </td>
+                                    <!-- ===================== END ===================== -->
                                 </tr>
-
-
                                 <?php endforeach; ?>
                             </tbody>
-                            <tr class="text-left text-small" style="background-color: #4f6070; font-weight: bold;">
-                                <td class="text-center text-light" colspan="3">Total</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                                <td class="text-right text-light">0</td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -149,3 +214,31 @@
     </div>
 </div>
 </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+$('.item').each(function() {
+    const obj = $(this)
+    const opname45 = obj.find('.opname45')
+    const selisihQty45 = obj.find('.selisihQty45')
+    const stok45 = obj.find('.stok45')
+
+    const opname11 = obj.find('.opname11')
+    const selisihQty11 = obj.find('.selisihQty11')
+    const stok11 = obj.find('.stok11')
+
+    const selishiHarga45 = obj.find('.selishiHarga45')
+    const selisihHarga11 = obj.find('.selisihHarga11')
+    const harga = obj.find('.harga')
+
+    opname45.keyup(function() {
+        selisihQty45.val(opname45.val() - stok45.val())
+        selishiHarga45.val(selisihQty45.val() * harga.val())
+    })
+
+    opname11.keyup(function() {
+        selisihQty11.val(opname11.val() - stok11.val())
+        selisihHarga11.val(selisihQty11.val() * harga.val())
+    })
+})
+</script>
