@@ -128,7 +128,8 @@
                                     <!-- End modal trigger namabarang -->
 
                                 </td>
-                                <td class="text-right"><small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
+                                <td class="text-center">
+                                    <small><?= number_format($data['HARGA'], 0, ',', '.'); ?></small>
                                 </td>
 
                                 <!-- ================= Jumlah Merchandise (stok) =================== -->
@@ -171,7 +172,7 @@
                         <tr class="text-left text-small" style="background-color: #4f6070; font-weight: bold;">
                             <td class="text-center text-light" colspan="4">TOTAL</td>
                             <?php foreach ($hargaMerchan as $data) : ?>
-                            <td class="text-right text-light merchan"><?= number_format($data['HARGA'], 0, ',', '.') ?>
+                            <td class="text-center text-light merchan"><?= number_format($data['HARGA'], 0, ',', '.') ?>
                             </td>
                             <td class="text-right text-light"><?= number_format($data['JUMLAH'], 0, ',', '.') ?></td>
                             <?php endforeach; ?>
