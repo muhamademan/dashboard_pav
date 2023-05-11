@@ -339,7 +339,7 @@ class Master_data extends CI_Controller
         $addData = $this->db->insert('PAV_DATA_BRG', $data);
         if ($addData) {
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Data Berang berhasil ditambahkan <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            Data Barang berhasil ditambahkan <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span></button></div>');
             redirect('master_data/md_data_barang');
         }
