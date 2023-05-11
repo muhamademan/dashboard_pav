@@ -28,10 +28,6 @@ class stok_barangMerchan extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function detailMerchan($KODEBARANGMASUK)
-    {
-    }
-
     public function stok_opname()
     {
         $data['user'] = $this->db->get_where('PAV_CABANG', ['USER_NAME' => $this->session->userdata('USER_NAME')])->row_array();
