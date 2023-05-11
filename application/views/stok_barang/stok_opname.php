@@ -96,7 +96,7 @@
                                                 value="<?= $data['JUMLAH'] ?>" readonly>
                                             <?php } else { ?>
                                             <input type="text" name="JUMLAH45[]" class="form-control stok45" id=""
-                                                value="-" readonly>
+                                                value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
@@ -108,7 +108,7 @@
                                                 value="<?= $data['JUMLAH'] ?>" readonly>
                                             <?php } else { ?>
                                             <input type="text" name="JUMLAH11[]" class="form-control stok11" id=""
-                                                value="-" readonly>
+                                                value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
@@ -126,7 +126,7 @@
                                                 id="" value="<?= $data['JUMLAH'] ?>">
                                             <?php } else { ?>
                                             <input type="text" name="PERHITUNGAN_STOK45[]" class="form-control opname45"
-                                                id="" value="-" readonly>
+                                                value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
@@ -138,7 +138,7 @@
                                                 id="" value="<?= $data['JUMLAH'] ?>">
                                             <?php } else { ?>
                                             <input type="text" name="PERHITUNGAN_STOK11[]" class="form-control opname11"
-                                                id="" value="-" readonly>
+                                                value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
@@ -157,7 +157,7 @@
                                                 value="0" readonly>
                                             <?php } else { ?>
                                             <input type="text" name="SELISIH_QTY45[]" class="form-control selisihQty45"
-                                                value="-" readonly>
+                                                value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
@@ -169,7 +169,7 @@
                                                 value="0" readonly>
                                             <?php } else { ?>
                                             <input type="text" name="SELISIH_QTY11[]" class="form-control selisihQty11"
-                                                value="-" readonly>
+                                                value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
@@ -186,7 +186,7 @@
                                                 class="form-control selishiHarga45" value="0" readonly>
                                             <?php } else { ?>
                                             <input type="text" name="SELISIH_HARGA45[]"
-                                                class="form-control selishiHarga45" value="-" readonly>
+                                                class="form-control selishiHarga45" value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
@@ -198,7 +198,7 @@
                                                 class="form-control selisihHarga11" value="0" readonly>
                                             <?php } else { ?>
                                             <input type="text" name="SELISIH_HARGA11[]"
-                                                class="form-control selisihHarga11" value="-" readonly>
+                                                class="form-control selisihHarga11" value="" readonly>
                                             <?php } ?>
                                         </small>
                                     </td>
