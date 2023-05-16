@@ -1,4 +1,7 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Form_permintaan extends CI_Controller
@@ -77,6 +80,11 @@ class Form_permintaan extends CI_Controller
         $NAMA_PEMINTA       = $this->input->post('NAMA_PEMINTA');
         $DEPARTEMENT        = $this->input->post('DEPARTEMENT');
 
+        // $from               = $this->config->item('smtp_user');
+        $EMAILKACAB         = $this->input->post('EMAILKACAB');
+        $SUBJECT            = $_POST['SUBJECT'];
+        $MESSAGE            = $_POST['MESSAGE'];
+
 
         for ($i = 0; $i < count($KODEBARANG); $i++) {
 
@@ -88,10 +96,52 @@ class Form_permintaan extends CI_Controller
             $this->db->query("UPDATE PAV_BARANGMASUK SET JUMLAH = $SISA WHERE KODEBARANGMASUK = $KODEBARANGMASUK[$i]");
         }
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Permintaan merchandise berhasil terkirim <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span></button></div>');
-        redirect('form_permintaan');
+
+
+        // Load PHPMailer library
+        // $this->load->library('phpmailer_lib');
+        // PHPMailer Object
+        // $mail = $this->phpmailer_lib->load();
+        // include('phpmailer/PHPMailerAutoload.php');
+        require_once APPPATH . 'third_party/PHPMailer/Exception.php';
+        require_once APPPATH . 'third_party/PHPMailer/PHPMailer.php';
+        require_once APPPATH . 'third_party/PHPMailer/SMTP.php';
+        $mail = new PHPMailer;
+        // SMPT Configuration
+        $mail->SMTPDebug = 0;
+        // $mail->Debugoutput = 'html';
+        $mail->isSMTP();
+        $mail->Host = 'e-relay.jne.co.id';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'notification@jne.co.id';
+        $mail->Password = '123456';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        // Sender
+        $mail->setFrom('no-reply@jne.co.id', 'Permohonan Mercahndise');
+
+        // Recipients
+        $mail->addAddress('eman.sulaeman@jne.co.id');
+        // $mail->addAddress("$EMAILKACAB");
+
+        $mail->isHTML(true);
+        $mail->Subject = $SUBJECT;
+
+        $mailContent = 'tolong di acc';
+        $mail->Body = $mailContent;
+
+
+
+        if (!$mail->send()) {
+            echo 'Pesan Gagal Dikirim';
+            echo 'Mailer Error :' . $mail->ErrorInfo;
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            Permintaan merchandise berhasil terkirim <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button></div>');
+            redirect('form_permintaan');
+        }
     }
 
     // public function proses_submit()
