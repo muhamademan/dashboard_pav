@@ -128,6 +128,7 @@ class stok_barangMerchan extends CI_Controller
         $keterangan         = 'All Report Stok Opname';
         $data['ket']        = $keterangan;
         $data['dt_report']  = $this->m_stok->getAll();
+        $data['dt_total']   = $this->m_stok->allTotal();
         $this->load->view('stok_opname/printExcel', $data);
     }
 
@@ -140,6 +141,7 @@ class stok_barangMerchan extends CI_Controller
         $keterangan         = 'Data stok opname dari tanggal ' . $tanggal1 . ' sampai dengan tanggal ' . $tanggal2;
         $data['ket']        = $keterangan;
         $data['dt_report']  = $this->m_stok->view_by_tanggal($tanggal1, $tanggal2)->result_array();
+        $data['dt_total']   = $this->m_stok->total_byTgl($tanggal1, $tanggal2)->result_array();
         $this->load->view('stok_opname/printExcel', $data);
     }
 
@@ -148,9 +150,10 @@ class stok_barangMerchan extends CI_Controller
         $data['tgl_cetak']  = "Dicetak pada tanggal : " . date('d M Y');
         $tgl_opname         = $_GET['tgl_opname'];
 
-        $keterangan         = 'Data stok opname berdasarkan tanggal opname yang disimpan ; ' . $tgl_opname;
+        $keterangan         = 'Data stok opname berdasarkan tanggal opname yang disimpan : ' . $tgl_opname;
         $data['ket']        = $keterangan;
         $data['dt_report']  = $this->m_stok->by_tglOpname($tgl_opname)->result_array();
+        $data['dt_total']   = $this->m_stok->total_tglOpname($tgl_opname)->result_array();
         $this->load->view('stok_opname/printExcel', $data);
     }
 }
