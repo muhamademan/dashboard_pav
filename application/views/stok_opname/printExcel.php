@@ -107,6 +107,7 @@ foreach ($dt_report as $data) {
     $sheet->setCellValue('C' . $baris, $data['TGL_BRG']);
     $sheet->setCellValue('D' . $baris, $data['KODEBARANG']);
     $sheet->setCellValue('E' . $baris, $data['NAMABARANG']);
+
     $sheet->setCellValue('F' . $baris, $data['HARGA']);
     $sheet->setCellValue('G' . $baris, $data['TOTAL_JUMLAH']);
     $sheet->setCellValue('H' . $baris, $data['JUMLAH45']);
@@ -123,6 +124,68 @@ foreach ($dt_report as $data) {
 
     $baris++;
 }
+$baris++;
+
+// $total++;
+$sheet->setCellValue('A' . $baris, 'TOTAL REPORT OPNAME');
+$sheet->getStyle('A')->getFont()->setBold(true);
+$sheet->getStyle('A')->getFont()->setSize(12);
+
+foreach ($dt_total as $data) {
+    $sheet->setCellValue('F' . $baris, $data['HARGA']);
+    $sheet->getStyle('F')->getFont()->setBold(true);
+    $sheet->getStyle('F')->getFont()->setSize(12);
+
+    $sheet->setCellValue('G' . $baris, $data['TOTAL_JUMLAH']);
+    $sheet->getStyle('G')->getFont()->setBold(true);
+    $sheet->getStyle('G')->getFont()->setSize(12);
+
+    $sheet->setCellValue('H' . $baris, $data['JUMLAH45']);
+    $sheet->getStyle('H')->getFont()->setBold(true);
+    $sheet->getStyle('H')->getFont()->setSize(12);
+
+    $sheet->setCellValue('I' . $baris, $data['JUMLAH11']);
+    $sheet->getStyle('I')->getFont()->setBold(true);
+    $sheet->getStyle('I')->getFont()->setSize(12);
+
+    $sheet->setCellValue('J' . $baris, $data['TOTAL_JUMLAH']);
+    $sheet->getStyle('J')->getFont()->setBold(true);
+    $sheet->getStyle('J')->getFont()->setSize(12);
+
+    $sheet->setCellValue('K' . $baris, $data['PERHITUNGAN_STOK45']);
+    $sheet->getStyle('K')->getFont()->setBold(true);
+    $sheet->getStyle('K')->getFont()->setSize(12);
+
+    $sheet->setCellValue('L' . $baris, $data['PERHITUNGAN_STOK11']);
+    $sheet->getStyle('L')->getFont()->setBold(true);
+    $sheet->getStyle('L')->getFont()->setSize(12);
+
+    $sheet->setCellValue('M' . $baris, $data['TOTAL_JUMLAH']);
+    $sheet->getStyle('M')->getFont()->setBold(true);
+    $sheet->getStyle('M')->getFont()->setSize(12);
+
+    $sheet->setCellValue('N' . $baris, $data['SELISIH_QTY45']);
+    $sheet->getStyle('N')->getFont()->setBold(true);
+    $sheet->getStyle('N')->getFont()->setSize(12);
+
+    $sheet->setCellValue('O' . $baris, $data['SELISIH_QTY11']);
+    $sheet->getStyle('O')->getFont()->setBold(true);
+    $sheet->getStyle('O')->getFont()->setSize(12);
+
+    $sheet->setCellValue('P' . $baris, $data['TOTAL_JUMLAH']);
+    $sheet->getStyle('P')->getFont()->setBold(true);
+    $sheet->getStyle('P')->getFont()->setSize(12);
+
+    $sheet->setCellValue('Q' . $baris, $data['SELISIH_HARGA45']);
+    $sheet->getStyle('Q')->getFont()->setBold(true);
+    $sheet->getStyle('Q')->getFont()->setSize(12);
+
+    $sheet->setCellValue('R' . $baris, $data['SELISIH_HARGA11']);
+    $sheet->getStyle('R')->getFont()->setBold(true);
+    $sheet->getStyle('R')->getFont()->setSize(12);
+}
+
+
 // }
 $writer = new Xlsx($spreadsheet);
 $filename = "Report Stok Opname";
