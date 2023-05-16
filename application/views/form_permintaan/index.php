@@ -38,6 +38,27 @@
                                 onkeyup="this.value = this.value.toUpperCase()" autocomplete="off">
                         </div>
                     </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="EMAILKACAB">Email Kacab</label>
+                            <input type="text" name="EMAILKACAB" class="form-control" id="EMAILKACAB" readonly
+                                value="<?= $user['EMAILKACAB'] ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="SUBJECT">Subject</label>
+                            <input type="text" name="SUBJECT" class="form-control" id="SUBJECT" readonly
+                                value="PERMOHONAN PERSETUJUAN PERMINTAAN BARANG/MERCHANDISE">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="MESSAGE">Message</label>
+                            <input type="text" name="MESSAGE" class="form-control" id="MESSAGE" readonly
+                                value="Bapak/Ibu mohon untuk approval permohonan barang.">
+                        </div>
+                    </div>
                     <input type="text" name="CABANG" value="<?= $user['KODECABANG'] ?>" readonly hidden>
                     <input type="text" name="DESTINASI" value="<?= $user['DESTINASI'] ?>" readonly hidden>
                     <input type="text" name="REGIONAL" value="<?= $user['REGIONAL'] ?>" readonly hidden>
