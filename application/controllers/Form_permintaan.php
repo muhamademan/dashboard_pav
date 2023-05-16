@@ -136,12 +136,12 @@ class Form_permintaan extends CI_Controller
         if (!$mail->send()) {
             echo 'Pesan Gagal Dikirim';
             echo 'Mailer Error :' . $mail->ErrorInfo;
-        } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Permintaan merchandise berhasil terkirim <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span></button></div>');
-            redirect('form_permintaan');
-        }
+        redirect('form_permintaan');
     }
 
     // public function proses_submit()
